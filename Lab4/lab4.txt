@@ -1,0 +1,48 @@
+Lab4Md Abdullah All WadudCS-325Prof. Reid1. 
+
+
+double ArithmeticMean(ifstream& in){
+   double data, sum = 0;
+   int n = 0;
+   while(in >> data){
+      sum += data;
+      n += 1;
+   }
+   return sum/n;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////
+
+2.
+
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+double HarmonicMean(ifstream &in) {
+    int n = 0;
+    double hm = 0, num;
+    while (in >> num) {
+        hm += 1 / num;
+    }
+    hm = n / hm;
+    return hm;
+}
+
+int main() {
+    string fileName;
+    cout << "Enter file name: ";
+    cin >> fileName;
+    ifstream in(fileName.c_str());
+    if (in.is_open()) {
+        cout << "Harmonic mean of numbers in file is " << HarmonicMean(in) << endl;
+        in.close();
+    } else {
+        cout << fileName << " does not exists!" << endl;
+    }
+    return 0;
+}

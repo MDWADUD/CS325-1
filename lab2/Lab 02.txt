@@ -1,0 +1,92 @@
+Lab2Md Abdullah All WadudCS-325Prof. Reid
+
+
+#include<iostream>
+using namespace std;
+
+class Stack
+{
+int top, max = 1000;
+public:
+char s[1000]; //stack array
+Stack()
+{
+top = -1;
+}
+bool push(char x);
+char pop();
+bool isEmpty();
+};
+//push element into stack
+bool Stack::push(char item)
+{
+if (top >= (max-1))
+{
+cout << "Stack Overflow";
+return false;
+}
+else
+{
+s[++top] = item;
+return true;
+}
+}
+
+//pop element from stack
+char Stack::pop()
+{
+if (top < 0)
+{
+cout << "Stack Underflow";
+return '0';
+}
+else
+{
+char item = s[top--];
+return item;
+}
+}
+bool Stack::isEmpty()
+{
+return (top < 0);
+}
+//return character equivalent for a value
+char convert(int num)
+{
+if (num >= 0 && num <= 9)
+return (char)(num + '0');
+else
+return (char)(num - 10 + 'A');
+}
+//function for converting decimal number to given base
+string converttobase(int num, int base)
+{
+class Stack stack;
+string val;
+if(num > 0 and (base >= 2 and base <= 16 ))
+{
+while(num > 0)
+{
+stack.push(convert(num % base));
+num /= base;
+}
+}
+else
+return "0";
+  
+while(!stack.isEmpty())
+{
+val = val + stack.pop();
+}
+return val;
+}
+int main()
+{
+int num, base;
+cout << "\nEnter a non negative number: ";
+cin >> num;
+cout << "\nEnter a base between 2 - 16:";
+cin >> base;
+cout << "Given number " << num << " in base " << base << " is " << converttobase(num, base);
+return 0;
+}

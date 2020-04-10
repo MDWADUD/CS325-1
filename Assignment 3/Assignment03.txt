@@ -1,0 +1,45 @@
+Assignment 02Md Abdullah All WadudCS-325Prof. Reid1. Moore's Law: 
+Gordon Moore is the co-founder of Intel chip in 1965. His law was the observation on processors for certain period of time. The concept of the Law was combining more components into integrated circuits. According to the law, the number of transistors used to build a processor chip is doubling every year. It means the processor speed is increasing every year. 
+
+
+2. 
+Gordon E. Moore uses two techniques to speed up contemporary processors:
+
+a. Pipelining is when computers receives multiple instructions into a conceptual pipe with all stages of the pipe processing simultaneously and carry them out as they’re received(like an assembly line to make cars)
+
+b. Branch prediction is the process of being able to predict the next set of instruction code fetched from memory so that they can be carried out by guessing which way a branch or group of instructions will go.
+
+
+
+3. 
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+double gm(ifstream &in) {
+    double total = 1, x;
+    int n = 0;
+    while (in >> x) {
+        total *= x;
+    }
+    return pow(total, 1.0 / n);
+}
+
+int main() {
+    string fileName;
+    cout << "Enter file name: ";
+    cin >> fileName;
+    ifstream in(fileName.c_str());
+    if (in.is_open()) {
+        cout << "Geometric mean is " << gm(in) << endl;
+        in.close();
+    } else {
+        cout << fileName << " does not exists!" << endl;
+    }
+    return 0;
+}
+ 

@@ -1,0 +1,59 @@
+Lab3Md Abdullah All WadudCS-325Prof. Reid1) Program that calculating the sum of 45, 18 and 34; and stores to memory address 100.
+
+MVI A,45H
+
+ADI 18H
+
+MVI B,34H 
+
+ADI B 
+
+STA 0100H 
+
+HLT
+
+
+2) Program that calculating the expression 78 − 32 ∗ 2 and stores the result address 89
+
+LOAD 32H
+
+MUL 02H
+
+SUB 78H
+
+STA 0089
+
+HLT
+
+
+
+
+3) Program that calculates the consecutive sum from one to the number stores in memory address 82; and then, stores the result in memory address 143.
+
+LDA 0001H
+
+MOV C,A
+
+LXI H,0002H
+
+XRA A,
+
+MVI B,0000H
+
+JNC
+
+INR B
+
+DCR C
+
+JNZ 
+
+STA 0082H
+
+MOV A,B
+
+STA 143H
+
+HLT
+
+ 

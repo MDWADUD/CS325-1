@@ -1,0 +1,96 @@
+Assignment 02Md Abdullah All WadudCS-325Prof. Reid1. IAS stands for Institute for Advance Study (Memory Format):
+Its memory contains 4096 storage called words of 40 bit each. 40 bit data and instruction are being stored into two 20 bit instruction, where each instruction in turn contains 8-bits and 12 bits to the address designation. 
+
+Respective Assembly
+
+010FA210FB : It consists two 20-bit, 010FA and 210FB
+
+a. In 010FA, 01 is Opcode and 0FA is operand.
+b. In 010FB, 21 is Opcode and 0FB is operand.
+
+So, the assembly code will be: 
+ 08A LOAD(0FA)
+ STOR M(0FB)
+
+
+010FA0F8D : It also consists two 20-bit, 010FA and 0F08D
+
+a. In 010FA, 01 is Opcode and 0FA is operand.
+b. In 0F08D, 0F is Opcode and 08D is operand.
+
+So, the assembly code will be: 
+ 08B LOAD M(0FA)
+ JUMP +M(08D)
+
+
+020FA210FB : It also consists two 20-bit, 020FA and 210FB
+
+a. In 020FA, 02 is Opcode and 0FA is operand.
+b. In 210FB, 21 is Opcode and 08D is operand.
+
+So, the assembly code will be: 
+ 08C LOAD -M(0FA)
+ STOR M(0FB) 
+ 08D
+
+
+2. 
+
+#include <fstream>
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+using namespace std;
+
+
+int main() {
+   //Declaring variables
+int n,sumOfNos;
+
+cout<<"Enter a number :";
+cin>>n;
+  
+sumOfNos=(n*(n+1))/2;
+  
+cout<<"Sum of first "<<n<<" numbers :"<<sumOfNos<<endl;
+  
+  
+   return 0;
+}
+
+
+3.
+
+
+#include <fstream>
+      
+int main () {
+  std::ifstream infile ("test.txt",std::ifstream::binary);
+  std::ofstream outfile ("new.txt",std::ofstream::binary);
+
+  // get size of file
+  infile.seekg (0,infile.end);
+  long size = infile.tellg();
+  infile.seekg (0);
+
+ // allocate memory for file content
+  char* buffer = new char[size];
+
+  // read content of infile
+  infile.read (buffer,size);
+
+  // write to outfile
+  outfile.write (buffer,size);
+
+  // release dynamically-allocated memory
+  delete[] buffer;
+
+  outfile.close();
+  infile.close();
+  return 0;
+}
+
+ 

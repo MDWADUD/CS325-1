@@ -1,0 +1,154 @@
+Assignment 02Md Abdullah All WadudCS-325Prof. Reid1. Amdahl's Law: 
+
+In 1967 the processors speed up in a law proposed by Gene Amdahl. The proposal deals with a program which is speed up potentially processors rather than a single processor. Also, improving the speed of one aspect in the architecture does not improve the overall performance. 
+
+Little’s law: 
+
+The law established the relationship between the inventory, flow times and throughput rate of a production system. 
+
+The equation of the law is,
+Inventory = throughput * Flow time. 
+
+This is the main argument of the law. 
+
+
+
+2.
+
+Taking the approximate value of Giga as 109
+
+Total instructions = 13 x 109
+
+Total floating point instructions = 0.4x13x109 = 5.2x109
+Total Cycles required for point instructions = 7x5.2x109 = 36.4x109
+
+Total remaining instructions = 0.6x13x10^9 = 7.8x109
+Total Cycles required for point instructions = 3x7.8x109 = 23.4x109
+
+(a) Execution time of A = (total cycles)/(clock rate: cycles per second)
+           = ((36.4+23.4)x109) / (3.1415x109)
+           = 19.0355 seconds
+
+(b) In modified case:
+
+Total Cycles required for point instructions = (7x5.2x109)/3 = (36.4/3)x109     [Three times fast]
+
+Total Cycles required for point instructions = (3x7.8x109)/2 = (23.4/2)x109     [Half time]
+
+Modified Execution time of A = (total cycles)/(clock rate: cycles per second)
+                     = ((36.4/3 + 23.4/2)x109) / (3.1415x109)
+                     = 7.5866 seconds
+
+(c) The gained speedup = (old speed - modified speed)/(old speed) = 0.6015 = 60.15% (approximately)
+
+
+
+3.
+
+#include<iostream>
+#include<string>
+#include <stack>
+
+using namespace std;
+
+//This function will return precedence of operators
+int pr(char o)
+{
+if(o == '^')
+   {
+       return 3;
+   }
+else if(o == '*' || o == '/')
+{
+       return 2;
+   }
+else if(o == '+' || o == '-')
+{
+       return 1;
+   }
+else
+{
+       return -1;
+   }
+}
+
+string infix_to_postfix(string c)
+{
+   std::stack<char> opstack;
+   opstack.push('N'); //adding first element to identify end of the stack
+   string postfix;
+   int l = c.length();
+
+   //In this loop all of our infix charactor will arrive one by one
+   for(int i = 0; i < l; i++)
+   {
+       char token = c[i];
+
+       // If there is a number function will return an empty string
+       if ((token >= '0') && (token <= '9'))
+       {
+           return " ";
+       }
+
+       // If the charactor is between a to z it will be directally appended into main postfix string
+       if ((token >= 'a') && (token <= 'z'))
+       {
+           postfix += token;
+       }
+
+       // If it is '(' then it will be pushed in opstack
+       else if (token == '(')
+       {
+           opstack.push('(');
+       }
+
+       // If we find ')' then we will pop everything and add to the output string(postfix), until '(' is found
+       else if (token == ')')
+       {
+           while ((opstack.top() != 'N') && (opstack.top() != '('))
+           {
+               char temp = opstack.top();
+               opstack.pop();
+               postfix += temp;
+           }
+           if (opstack.top() == '(')
+           {
+               opstack.pop();
+           }
+
+       }
+
+       // If token is a operator
+       else
+       {
+           while(opstack.top() != 'N' && pr(char(token)) <= pr(opstack.top()))
+           {
+               char temp = opstack.top();
+               opstack.pop();
+               postfix += temp;
+           }
+           opstack.push(token);
+       }
+
+   }
+
+   //Pop all the remaining elements from the stack
+while(opstack.top() != 'N')
+{
+char c = opstack.top();
+opstack.pop();
+postfix += c;
+}
+
+   return postfix;
+};
+
+int main()
+{
+   string c = "(a+b)*c";
+   cout << infix_to_postfix(c) << endl;
+   return 0;
+}
+
+
+ 

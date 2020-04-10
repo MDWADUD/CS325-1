@@ -1,0 +1,171 @@
+Lab5Md Abdullah All WadudCS-325Prof. Reid
+
+
+1.
+
+#include <iostream>
+
+
+
+using namespace std;
+
+class Queue
+
+{
+
+private:
+
+//instance variables
+
+char *q; //to store the elements in the queue
+
+int size, front, rear; //to store capacity, current front and current rear of queue
+
+public:
+
+Queue(int size) //parametrized constructor
+
+{
+
+this->size=size;
+
+q=new char[size]; //dynamically allocating array
+
+front=-1;
+
+rear=-1;
+
+}
+
+//function to add data to queue if it is not full
+
+bool Enqueue(char data)
+
+{
+
+if(front==rear+1 || (front==0 && rear==size-1)) //if queue is full
+
+return false; //data cannot be added
+
+if(front==-1)
+
+front=0;
+
+rear=(rear+1)%size;
+
+q[rear]=data; //adding data
+
+return true;//data added
+
+}
+
+//function to remove data from queue if it is not empty
+
+char Dequeue()
+
+{
+
+if(front==-1) //if queue is empty
+
+return '\0'; //data cannot be removed
+
+char data=q[front]; //data to be returned
+
+if(front==rear) //if queue is empty after removing data
+
+{
+
+front=-1;
+
+rear=-1;
+
+}
+
+else
+
+front=(front+1)%size; //removing data
+
+return data;
+
+}
+
+//function to peek and return data in front
+
+char Peek()
+
+{
+
+if(front==-1) //if queue is empty
+
+return '\0'; //data cannot be peeked
+
+return q[front]; //peeking value in front
+
+}
+
+//function to return if queue is empty or not
+
+bool IsEmpty()
+
+{
+
+if(front==-1)
+
+return true;
+
+return false;
+
+}
+
+//function to return size of queue
+
+int Size()
+
+{
+
+return size;
+
+}
+
+};
+
+int main()
+
+{
+
+//testing the class
+
+Queue q(20);
+
+q.Enqueue('1');
+
+q.Enqueue('2');
+
+q.Enqueue('3');
+
+cout << q.Dequeue() << "\n";
+cout << q.Peek() << "\n";
+cout << q.Dequeue() << "\n";
+cout << q.Size() << "\n";
+return 0;
+}
+
+
+
+2. 
+According to Little’s Law,
+
+ L = lamda*W
+
+ lamda = 1(rate of arrival is 1 character per read) and W = W(the time each character spends in the queue i.e. W reads)
+
+So as the rate of arrival of character changes so does the average number of charaters in the queue.
+
+The definition of the function will be.
+
+double LittlesLaw(ifstream& in, int W)
+{
+int lamda=1;// rate of arrival of a character
+  
+return lamda*W;// according to Little's Law
+}
