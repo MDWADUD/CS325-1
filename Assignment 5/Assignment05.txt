@@ -1,0 +1,166 @@
+Assignment-05Md Abdullah All WadudCS-325Prof. Reid
+
+1.The execution of states are,
+
+a. Instruction Address Calculation (IAC)
+Instruction Address Calculation will be instruct to be executed next is determined in the state. This step is done be adding fixed value to the previous instruction.
+
+
+b. Instruction Fetch (IF)
+The IF stored in the memory location that read into the processor.
+
+
+c. Instruction Operation Decoding (IOD)
+The instruction operation decoding performs on the instruction determined along with the operand to be used.
+
+d. Operand Address Calculation (OAC)
+Operand Address Calculation is find out the address of the operand, if the operation involves reference to an operand in memory.
+
+e. Operand Fetch (OF)
+The Operand Fetch operation involves operand and fetch it from memory or read it from I/O. 
+
+f. Data operation (DO)
+Data operation performed in the state by instruction. 
+
+
+h. Operand Store(OS)
+The result of the instruction write in memory or out through I/O device.
+
+
+2.
+Multiple interrupts can dealing with two approach. 
+
+A. First Approach
+The first approach will be interrupt the processor while the processor being processing, if it get any interruptions while the working it will keep them in pending, unit the processor has enabled interruption. It will start again when the processor finished first operation. 
+
+
+B. Second Approach 
+The Second interruption approach will decided the highest priority allowed to cause a lowest priority handler to interrupt itself on the processor.
+
+
+3. 
+
+#include <iostream>
+#include <fstream>
+#include <cstdio>
+
+using namespace std;
+
+/*This function loops over 100 times and writes a string of 32 zeroes in each line*/
+void Initialize(fstream &ram)
+{
+for(int i = 0; i < 100; i++) ram << "00000000000000000000000000000000\n";
+}
+
+string Read(fstream &ram, int addr)
+{
+string r;
+int i = 0;
+
+ram.seekg(0, ios::beg);
+
+if(addr >= 100)
+{
+return "";
+}
+
+while(ram >> r)
+{
+if(i == addr)
+{
+return r;
+}
+++i;
+}
+}
+
+void Write(fstream &ram, string data, int addr)
+{
+ram.seekg(0, ios::beg);
+
+if(addr >= 100)
+{
+return;
+}
+
+fstream tempfile("temp.txt", ios::out);
+int i = 0;
+string r;
+
+data += '\n';
+
+while(ram >> r)
+{
+if(i == addr) tempfile << data;
+
+r += '\n';
+tempfile << r;
+i++;
+}
+
+tempfile.close();
+ram.close();
+
+remove("mem.txt");
+
+rename("temp.txt", "mem.txt");
+
+ram.open("mem.txt", ios::in | ios::app);
+}
+
+int main()
+{
+fstream f("mem.txt", ios::in | ios::out);
+int choice, addr;
+string s;
+Initialize(f);
+
+do
+{
+cout << "\n1. Read";
+cout << "\n2. Write";
+cout << "\n0. Exit";
+cin >> choice;
+
+switch(choice)
+{
+case 1:
+cout << "\nEnter address: ";
+cin >> addr;
+s = Read(f, addr);
+cout << "Data at address " << addr << ": " << s;
+break;
+case 2:
+cout << "\nEnter address: ";
+cin >> addr;
+cout << "Enter new data: ";
+cin >> s;
+Write(f, s, addr);
+cout << "\nWritten successfully!";
+break;
+case 0:
+cout << "\nGoodbye!";
+break;
+default:
+cout << "\nWrong choice!";
+break;
+}
+}while(choice);
+
+f.close();
+
+return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
